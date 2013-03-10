@@ -9,17 +9,17 @@ Feature: Merge Articles
 
   Scenario: A non-admin cannot merge two articles
     #Given I am not an admin
-    Given I am logged as "noadmin" with password "noadmin"
-    And an article with the title "Hello world!"
+    Given I am logged as "not_admin" with password "not_admin"
+    And a first article
     And I am on the admin content page
     When I follow "Edit"
     Then I should not see "Merge"
 
   Scenario: Merged article should contain the text of both previous articles
     #Given I am an admin
-    Given I am logged as "admin" with password "admin"
-    And an article with the title "Hello world!"
-    And an article with the title "Hello mates!"
+    Given I am logged as "is_admin" with password "is_admin"
+    And a first article
+    And a second article
     And I am on the admin content page
-    When I follow "Hello world!"
+    When I follow "article to merge 1 title"
     Then I should see "Merge"

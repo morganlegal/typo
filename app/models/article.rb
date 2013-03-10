@@ -95,6 +95,35 @@ class Article < Content
   include Article::States
 
   class << self
+
+    def merge(art_id_1, art_id_2)
+
+      art_1 = Article.find_by_id(art_id_1)
+      art_2 = Article.find_by_id(art_id_2)
+
+      debugger
+
+      merged = Article.create(
+          :title => art_1.title,
+          :author => art_1.author,
+          :body => art_1.body + article_2.body,
+          :user_id => art_1.user_id,
+          :published => true,
+          :allow_comments => true)
+
+      comments = Feedback.find_all_by_article_id(art_1) + Feedback.find_all_by_article_id(art_2)
+      comments.each do |comment|
+        comment.article_id = merged_article.id
+        comment.save
+      end
+
+      #Article.destroy(art_id_1)
+      #Article.destroy(art_id_2)
+      merged
+
+    end
+
+
     def last_draft(article_id)
       article = Article.find(article_id)
       while article.has_child?
