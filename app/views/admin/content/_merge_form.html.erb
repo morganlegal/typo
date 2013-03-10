@@ -1,0 +1,11 @@
+<%= form_tag('/admin/content/merge', :name => "merge_form", :id => "#{form_type}_form", :enctype => "multipart/form-data") do %>
+    <%= hidden_field_tag 'id', @article.id %>
+    <h4><%= _("Merge Articles") %></h4>
+    <p>
+        Article ID
+        <%= text_field_tag 'merge_with' %>
+    </p>
+    <p>
+        <%= submit_tag 'Merge' %>
+    </p>
+<% end %>
